@@ -1,0 +1,92 @@
+/* Navbar */
+.navbar-style {
+}
+
+.image {
+    width: 100%;
+    height: 70vh;
+    object-fit: cover;
+}
+
+.hero-text {
+    color: white;
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Category */
+.category {
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-field {
+    width: 100%;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    transition: 150ms all;
+    text-transform: capitalize;
+}
+
+.category-field:hover {
+    background-color: gray;
+    color: #fff;
+    border: none;
+    justify-content: center;
+
+}
+
+.card-style {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+}
+
+.titleAndAuthor {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.likeViewButton {
+    display: flex;
+    justify-content: space-between;
+}
+
+.likeView {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* Newsletter */
+.newsletter {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input {
+    width: 400px;
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.input > input {
+    width: 94%;
+    outline: none;
+    border: none;
+}

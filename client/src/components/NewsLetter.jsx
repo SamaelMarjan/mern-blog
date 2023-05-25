@@ -1,8 +1,15 @@
 import React from 'react'
-
+import {IoIosSend} from 'react-icons/io'
 const NewsLetter = () => {
   return (
-    <div>NewsLetter</div>
+    <div className='container newsletter'>
+      <div>
+        <p>Any Question?</p>
+      </div>
+      <div className='input'>
+        <input /> <IoIosSend />
+      </div>
+    </div>
   )
 }
 
