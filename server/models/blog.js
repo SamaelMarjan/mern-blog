@@ -6,7 +6,7 @@ const blogSchema = new mongoose.Schema({
     category:{type: String, required: true},
     image:{type: String, required: true},
     desc:{type: String, required: true},
-    likes:{type:[string], default:[]},
+    likes:{type:[String], default:[]},
     views:{type: Number, default: 0}
 },{timestamps: true})
 
