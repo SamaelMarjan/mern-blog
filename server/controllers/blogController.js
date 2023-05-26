@@ -3,14 +3,15 @@ const blogModel = require('../models/blog')
 //create blog controller
 module.exports.createBlog  = async(req, res) => {
     try {
-        const {title, category, image, desc} = req.body
+        const {title, category, desc} = req.body
+        const {filename} = req.file
         //valodations
         if(!title) return res.json({message: "Title is required"})
         if(!category) return res.json({message: "Category is required"})
-        if(!image) return res.json({message: "Image is required"})
+        if(!filename) return res.json({message: "Image is required"})
         if(!desc) return res.json({message: "Description is required"})
         //create
-        const blog = await blogModel({...req.body, userId: req.user._id}).save()
+        const blog = await blogModel({title, category, image: filename, desc, userId: req.user._id}).save()
         res.status(200).json({
             success: true, message: 'Blog created successfully', blog
         })
