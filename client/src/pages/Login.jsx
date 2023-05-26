@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import toast, {Toaster} from 'react-hot-toast'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { login } from '../redux/authSlice'
 
 const Login = () => {
+  const dispatch = useDispatch()
+  //const navigate = useNavigate()
   const [input, setInput] = useState({
     email:'',
     password:''
@@ -12,10 +18,25 @@ const Login = () => {
     const {name, value} = e.target
     setInput({...input, [name] : value})
   }
+
+  //login user
+  const loginUser = async(e) => {
+    e.preventDefault()
+    try {
+      const {data} = await axios.post('http://localhost:5000/auth/login', input)
+      console.log(data);
+      dispatch(login(data))
+      toast.success(data.message)
+    } catch (error) {
+      console.log(error);
+      toast.error('Somethin wrong')
+    }
+  }
   
   return (
     <div className='container mt-5 login'>
-      <form>
+      <Toaster />
+      <form onSubmit={loginUser}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
           <input type="email" className="form-control" id="exampleInputEmail1"
@@ -30,7 +51,7 @@ const Login = () => {
         </div>
         <div>Forgot password? <Link>Click</Link> here to reset.</div>
         <div>Don't have an account? Please <Link to={'/register'}>register</Link>. </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" className="btn btn-primary">Login</button>
       </form>
     </div>
   )

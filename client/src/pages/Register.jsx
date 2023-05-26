@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import './styles.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast'
+import axios from 'axios'
 
 const Register = () => {
+  const navigate = useNavigate()
   const [input, setInput] = useState({
     username:'',
     email:'',
@@ -16,9 +19,26 @@ const Register = () => {
     setInput({...input, [name] : value})
   }
 
+  //create user
+  const createUser = async(e) => {
+    e.preventDefault()
+    try {
+      const {data} = await axios.post('http://localhost:5000/auth/register', input)
+      console.log(data);
+      if(data.success === true) {
+        navigate('/login')
+      }
+      toast.success(data.message)
+    } catch (error) {
+      console.log(error);
+      toast.error('Something wrong')
+    }
+  }
+
   return (
     <div className='container mt-5 register'>
-      <form>
+      <Toaster />
+      <form onSubmit={createUser}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Username</label>
           <input type="text" className="form-control" id="exampleInputEmail1" 
@@ -44,7 +64,7 @@ const Register = () => {
           />
         </div>
         <div>Already have an account? Please <Link to={'/login'}>Login</Link></div>
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" className="btn btn-primary">Register</button>
       </form>
     </div>
   )

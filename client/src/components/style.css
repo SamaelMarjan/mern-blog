@@ -17,6 +17,23 @@
     justify-content: center;
 }
 
+.styleModal {
+    position: absolute;
+    top: 100%;
+    right: 9%;
+    background-color: grey;
+    width: 192px;
+    /* height: 200px; */
+}
+
+.createPost:hover {
+    background-color: #000;
+}
+
+.logoutD:hover {
+    background-color: #000;
+}
+
 /* Category */
 .category {
     width: 100%;
