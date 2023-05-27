@@ -17,7 +17,7 @@ const PostDetails = () => {
   useEffect(() => {
     const singleBlog = async() => {
       try {
-        const {data} = await axios.get(`http://localhost:5000/blog/get/${id}`)
+        const {data} = await axios.get(`https://mern-blog-hk4p.onrender.com/blog/get/${id}`)
         //console.log(data);
         toast.success(data.message)
         setBlogData(data.blog)
@@ -34,7 +34,7 @@ const PostDetails = () => {
   //handle like
   const handleLike = async() => {
     try {
-      const {data} = await axios.put(`http://localhost:5000/blog/like/${blogData._id}`, {}, {
+      const {data} = await axios.put(`https://mern-blog-hk4p.onrender.com/blog/like/${blogData._id}`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -57,7 +57,7 @@ const PostDetails = () => {
   //delete blog
   const handleDelete = async(id) => {
     try {
-      const {data} = await axios.delete(`http://localhost:5000/blog/delete/${id}`, {
+      const {data} = await axios.delete(`https://mern-blog-hk4p.onrender.com/blog/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -82,7 +82,7 @@ const PostDetails = () => {
             <>
               <div className='blogData mt-2'>
                 <div><AiFillTag /> {blogData?.category}</div>
-                <img src={`http://localhost:5000/blog/${blogData?.image}`} alt={blogData?.title} />
+                <img src={`https://mern-blog-hk4p.onrender.com/blog/${blogData?.image}`} alt={blogData?.title} />
                 <div className='titleAndCOntrollers'>
                   <h3>
                     {blogData?.title}

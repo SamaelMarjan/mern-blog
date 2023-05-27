@@ -23,7 +23,7 @@ const Login = () => {
   const loginUser = async(e) => {
     e.preventDefault()
     try {
-      const {data} = await axios.post('http://localhost:5000/auth/login', input)
+      const {data} = await axios.post('https://mern-blog-hk4p.onrender.com/auth/login', input)
       console.log(data);
       dispatch(login(data))
       toast.success(data.message)

@@ -18,7 +18,7 @@ const Categories = () => {
   //get all blogs
   const allBlogs = async() => {
     try {
-      const {data} = await axios.get('http://localhost:5000/blog/get')
+      const {data} = await axios.get('https://mern-blog-hk4p.onrender.com/blog/get')
       console.log(data);
       toast.success(data.message)
       setBlogs(data.blog)
@@ -63,7 +63,7 @@ const Categories = () => {
             {
               filterBlogs?.map((blog) => (
                 <div key={blog?._id} className="card card-body-tag" style={{width: '18rem'}}>
-                  <img src={`http://localhost:5000/blog/${blog?.image}`} className="card-img" alt={blog?.title} />
+                  <img src={`https://mern-blog-hk4p.onrender.com/blog/${blog?.image}`} className="card-img" alt={blog?.title} />
                   <div className="card-body">
                     <div className='titleAndAuthor'>
                       <h5 className="card-title">{blog?.title}</h5>

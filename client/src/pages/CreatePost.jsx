@@ -30,7 +30,7 @@ const CreatePost = () => {
   const createPost = async(e) => {
     e.preventDefault()
     try {
-      const {data} = await axios.post('http://localhost:5000/blog/create', input, {
+      const {data} = await axios.post('https://mern-blog-hk4p.onrender.com/blog/create', input, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type" : "multipart/form-data"

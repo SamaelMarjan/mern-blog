@@ -23,7 +23,7 @@ const Register = () => {
   const createUser = async(e) => {
     e.preventDefault()
     try {
-      const {data} = await axios.post('http://localhost:5000/auth/register', input)
+      const {data} = await axios.post('https://mern-blog-hk4p.onrender.com/auth/register', input)
       console.log(data);
       if(data.success === true) {
         navigate('/login')

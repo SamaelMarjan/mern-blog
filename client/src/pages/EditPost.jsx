@@ -30,7 +30,7 @@ const EditPost = () => {
   useEffect(() => {
     const editHandle = async() => {
       try {
-        const {data} = await axios.get(`http://localhost:5000/blog/get/${id}`)
+        const {data} = await axios.get(`https://mern-blog-hk4p.onrender.com/blog/get/${id}`)
         console.log(data);
         toast.success(data.message)
         setInput(data.blog)
@@ -46,7 +46,7 @@ const EditPost = () => {
   const handleUpdate = async(e) => {
     e.preventDefault()
     try {
-      const {data} = await axios.put(`http://localhost:5000/blog/edit/${id}`, input, {
+      const {data} = await axios.put(`https://mern-blog-hk4p.onrender.com/blog/edit/${id}`, input, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type" : "multipart/form-data"
