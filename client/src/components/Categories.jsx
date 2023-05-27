@@ -1,42 +1,92 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {MdOutlinePageview} from 'react-icons/md'
 import {AiFillLike} from 'react-icons/ai'
+import toast, { Toaster } from 'react-hot-toast'
+import axios from 'axios'
+import './style.css'
 
 const Categories = () => {
   const categories = [
     'all', 'digital', 'artificial', 'design', 'places', 'tools', 'technology'
   ]
+
+  const [blogs, setBlogs] = useState([])
+  const [filterBlogs, setFilterBlogs] = useState([])
+  const [activeCategory, setActiveCategory] = useState('all')
+
+  //get all blogs
+  const allBlogs = async() => {
+    try {
+      const {data} = await axios.get('http://localhost:5000/blog/get')
+      console.log(data);
+      toast.success(data.message)
+      setBlogs(data.blog)
+      setFilterBlogs(data.blog)
+    } catch (error) {
+      console.log(error);
+      toast.error('Something wrong')
+    }
+  }
+
+  useEffect(() => {
+    allBlogs()
+  }, [])
+
+  //filter categorywise
+  useEffect(() => {
+    if(activeCategory === 'all') {
+      setFilterBlogs(blogs)
+    } else {
+      setFilterBlogs(() => {
+        const filterBlogs = blogs.filter((blog) => blog.category.toLowerCase() === activeCategory.toLocaleLowerCase())
+        return filterBlogs
+      })
+    }
+  }, [activeCategory, blogs])
+
   return (
     <div className='categories container'>
+      <Toaster />
       <div className='category'>
         {
           categories.map((category, id) => (
-            <div key={id} className='category-field'>
+            <div key={id} className={`category-field ${activeCategory === category && 'active-cat'}`} onClick={() => setActiveCategory(category)}>
               {category}
             </div>
           ))
         }
       </div>
-      <div className='card-style'>
-        <div className="card" style={{width: '18rem'}}>
-          <img src="images/image one.jpg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <div className='titleAndAuthor'>
-              <h5 className="card-title">Card title</h5>
-              <span>Author: Samael</span>
-            </div>
-            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <div className='likeViewButton'>
-              <div className='likeView'>
-                <MdOutlinePageview size={30} /> 20
-                <AiFillLike size={25} /> 1
-              </div>
-              <Link className="btn btn-primary" to={'/details/:id'}>View</Link>
-            </div>
+        {
+          filterBlogs?.length > 0 ? <>
+          <div className='card-style'>
+            {
+              filterBlogs?.map((blog) => (
+                <div key={blog?._id} className="card card-body-tag" style={{width: '18rem'}}>
+                  <img src={`http://localhost:5000/blog/${blog?.image}`} className="card-img" alt={blog?.title} />
+                  <div className="card-body">
+                    <div className='titleAndAuthor'>
+                      <h5 className="card-title">{blog?.title}</h5>
+                      <span>Author: {blog?.userId?.username}</span>
+                    </div>
+                    <p className="card-text">{blog?.desc}</p>
+                    <div className='likeViewButton'>
+                      <div className='likeView'>
+                        <MdOutlinePageview size={30} /> {blog?.views}
+                        <AiFillLike size={25} /> {blog?.likes?.length}
+                      </div>
+                      <Link className="btn btn-primary" to={`/details/${blog?._id}`}>View</Link>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
           </div>
-        </div>
-      </div>
+          </> : <>
+            <h3>No blogs</h3>
+          </>
+        }
+        
     </div>
   )
 }

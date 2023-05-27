@@ -37,7 +37,7 @@ router.get('/get', getAllBlog)
 router.get('/get/:id', getSingleBLog)
 
 //upadte blog route
-router.put('/edit/:id', verifyToken, updateBlog)
+router.put('/edit/:id', upload.single('image'), verifyToken, updateBlog)
 
 //delete blog route
 router.delete('/delete/:id', verifyToken, deleteBlog)

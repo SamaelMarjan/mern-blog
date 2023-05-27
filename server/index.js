@@ -12,7 +12,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/auth', authRoute)
-app.use('/blog', blogRoute)
+app.use('/blog', express.static('./uploads'), blogRoute)
 
 const PORT = process.env.PORT || 5000
 

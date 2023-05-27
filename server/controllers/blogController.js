@@ -60,13 +60,15 @@ module.exports.getSingleBLog = async(req, res) => {
 module.exports.updateBlog = async(req, res) => {
     try {
         const {id} = req.params
+        const {title, category, desc, image} = req.body
+        const {filename} = req.file
         const updateBlog = await blogModel.findById(id)
         //validate only user can update blog
         if(updateBlog.userId.toString() !== req.user._id.toString()) {
             return res.status(404).json({message: "Only user can update blog"})
         }
         //update blog
-        const blog = await blogModel.findByIdAndUpdate(id, {...req.body}, {new: true})
+        const blog = await blogModel.findByIdAndUpdate(id, {title, category, desc, image: filename}, {new: true})
         res.status(200).json({
             success: true, message: 'Successfully updated blog', blog
         })
@@ -89,7 +91,7 @@ module.exports.deleteBlog = async(req, res) => {
         }
         //delete
         const blog = await blogModel.findByIdAndDelete(id)
-        res.status(200).json({message: "Deleted successfully"})
+        res.status(200).json({success: true, message: "Deleted successfully"})
     } catch (error) {
         console.log(error);
         res.status(404).json({
