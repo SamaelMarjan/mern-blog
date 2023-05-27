@@ -54,9 +54,9 @@ const EditPost = () => {
       })
       console.log(data);
       toast.success(data.message)
-      // if(data.success === true) {
-      //   navigate('/')
-      // }
+      if(data.success === true) {
+        navigate('/')
+      }
       setInput(data.blog)
     } catch (error) {
       console.log(error);
